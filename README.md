@@ -1,5 +1,37 @@
 # TCK to TRK Converter
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **This application converts tractography files from the .tck format to the .trk format. It uses a reference anatomy image in NIfTI format to ensure proper alignment.**
+
+Converts a .tck tractogram to TrackVis .trk with nibabel, taking the voxel-to-RAS affine, voxel sizes, dimensions and voxel order for the .trk header from a reference image. The reference is the first available of T1w, parcellation or mask (the T2w branch is unreachable because of a typo in main). Use it when a downstream tool needs .trk streamlines; the reference image must be in the same space as the tractogram.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/track/tck` · `neuro/anat/t1w` (optional) · `neuro/anat/t2w` (optional) · `neuro/mask` (optional) · `neuro/parcellation/volume` (optional) |
+| 📤 **Outputs** | `neuro/track/trk` |
+| 🐳 **Container** | `brainlife/dipy:1.4.1` |
+| ⚙️ **Resources** | 1 CPUs · 8 GB memory · 0.08 h walltime |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.843](https://doi.org/10.25663/brainlife.app.843) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `tck` | `neuro/track/tck` | yes | Tractogram in MRtrix .tck format. |
+| `t1w` | `neuro/anat/t1w` | no | Optional T1-weighted image used as the reference for the .trk header (first choice). Same space as the tractogram. |
+| `t2w` | `neuro/anat/t2w` | no | Optional T2-weighted reference image; not selected by the current code because of a typo in main. |
+| `mask` | `neuro/mask` | no | Optional mask used as the reference image if no T1w or parcellation is given. |
+| `parc` | `neuro/parcellation/volume` | no | Optional parcellation used as the reference image if no T1w is given. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `trk` | `neuro/track/trk` | The tractogram converted to TrackVis .trk format. |
+
+<!-- brainlife-app:end -->
+
 This application converts tractography files from the `.tck` format to the `.trk` format. It uses a reference anatomy image in NIfTI format to ensure proper alignment.
 
 ## Features
